@@ -21,6 +21,7 @@ module.exports={
       },
       {
         test: /\.css$/,
+        include: /src/,
         use:[ 
           MiniCssExtractPlugin.loader,
           'css-loader',
@@ -29,6 +30,7 @@ module.exports={
       },
       {
         test: /\.scss$/,
+        include: /src/,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader', 
@@ -38,6 +40,7 @@ module.exports={
       },
       {
         test: /\.(gif|jpg|png|woff|woff2|svg|eot|ttf)$/,
+        include: /src/,
         loader: 'file-loader',
         options: {
           name: 'assets/img/[name]-[hash:8].[ext]'

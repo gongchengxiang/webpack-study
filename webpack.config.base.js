@@ -10,7 +10,7 @@ module.exports={
     path: path.resolve(__dirname,'dist'),
     filename: 'assets/js/[name]-[chunkhash:8].js',
     chunkFilename:'assets/js/[name]-[chunkhash:8].js',
-    publicPath: './'
+    publicPath: '/webpack-study/'
   },
   module:{
     rules:[
@@ -23,7 +23,12 @@ module.exports={
         test: /\.css$/,
         include: /src/,
         use:[ 
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '/',
+            },
+          },
           'css-loader',
           'postcss-loader',
         ]
@@ -32,32 +37,44 @@ module.exports={
         test: /\.scss$/,
         include: /src/,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            // options: {
+              // publicPath: '../../', // output 中的publicPath 采用相对路径时才需要这样确定css中url资源位置，生产环境不建议使用相对路径
+            // },
+          },
           'css-loader', 
           'sass-loader',
           'postcss-loader'
         ],
+        
       },
       {
         test: /\.(gif|jpg|png|woff|woff2|svg|eot|ttf)$/,
         include: /src/,
-        loader: 'file-loader',
-        options: {
-          name: 'assets/img/[name]-[hash:8].[ext]'
-        }
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              name: 'assets/img/[name]-[hash:8].[ext]',
+              limit: 1024 * 8
+            }
+          },
+        ],
+        
       }
     ]
   },
-  plugins:[
+  plugins: [
     new MiniCssExtractPlugin({
       filename: 'assets/css/[name]-[contenthash:8].css',
-      chunkFilename: "assets/css/[name].[contenthash:8].css"
+      chunkFilename: 'assets/css/[name].[contenthash:8].css',
     }),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: 'src/template/index.html',
       filename: `index.html`,
       inject: 'body',
-      favicon: './public/favicon.ico',
+      favicon: 'src/template/favicon.ico',
       // chunks: ['index'],
       title: 'webpack study'
     }),

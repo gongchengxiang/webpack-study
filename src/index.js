@@ -1,5 +1,11 @@
 import Vue from  'vue';
 import test1 from './test1';
+import png1 from './img/test1.png';
+import png2 from './img/test2.png';
+import png3 from './img/test3.png';
+import './css/index.scss';
+
+
 new Vue({
   el:'#app',
   render:(h)=>{
@@ -7,6 +13,15 @@ new Vue({
   }
 })
 console.log(test1);
+const appendImg = (imgUrl) => {
+  const img = new Image();
+  img.src = imgUrl;
+  img.width = 200;
+  document.body.appendChild(img)
+};
+appendImg(png1);
+appendImg(png2);
+appendImg(png3);
 const arr = [1,2,3,4,[5]]
 console.log(arr.includes(1))
 console.log(arr.flat(Infinity))

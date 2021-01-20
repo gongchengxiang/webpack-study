@@ -1,5 +1,5 @@
 const path = require('path');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const webpackBaseConfig = require('./webpack.config.base.js');
 module.exports = merge(webpackBaseConfig, {
   mode: 'production',
@@ -9,7 +9,7 @@ module.exports = merge(webpackBaseConfig, {
     port: 9000
   },
   optimization: {
-    minimize: true,
+    minimize: false,
     // minimizer:[
     //   new TerserPlugin({
     //     cache: true,
@@ -23,17 +23,18 @@ module.exports = merge(webpackBaseConfig, {
       name: 'runtime'
     },
     splitChunks: {
+      // chunks:'all',
       automaticNameDelimiter:'~',
       maxAsyncRequests:30,
       maxInitialRequests:30,
       maxSize: 1024 * 400,
-      // maxAsyncSize:1024 * 200,
+      maxAsyncSize:1024 * 200,
       cacheGroups:{
         vue: {
           test: /[\\/]node_modules[\\/](vue)[\\/]/,
           name: 'vue',
           chunks: 'all',
-          priority: 1,
+          priority: 10,
           reuseExistingChunk: true
         },
         vendors: {
@@ -41,6 +42,11 @@ module.exports = merge(webpackBaseConfig, {
           test: /[\\/]node_modules[\\/]/,
           priority: 0,
           name:'vendors',
+          reuseExistingChunk: true
+        },
+        default: {
+          minChunks: 2,
+          priority: -1,
           reuseExistingChunk: true
         },
         // vue:{

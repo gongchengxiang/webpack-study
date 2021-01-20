@@ -49,7 +49,6 @@ module.exports = {
           'sass-loader',
           'postcss-loader'
         ],
-        
       },
       {
         test: /\.(gif|jpg|jpeg|png|webp|svg)$/,
@@ -65,7 +64,8 @@ module.exports = {
         ],
       },
       {
-        test: /src\/fonts\/\S+\.(woff|woff2|eot|ttf|svg)$/,
+        test: /webfont.(woff|woff2|eot|ttf|svg)$/,
+        include: /src/,
         use: {
           loader: 'file-loader',
           options: {

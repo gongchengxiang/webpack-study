@@ -4,7 +4,7 @@ import test1 from './js/test1';
 import png2 from '@img/test2.png';
 import png3 from '@img/test3.png';
 import './css/index.scss';
-import './css/font-awesome.min.css';
+// import './css/font-awesome.min.css';
 
 new Vue({
   el:'#app',

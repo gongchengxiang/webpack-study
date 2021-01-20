@@ -1,15 +1,15 @@
 import Vue from  'vue';
-import test1 from './test1';
+import test1 from './js/test1';
 import png1 from './img/test1.png';
 import png2 from './img/test2.png';
 import png3 from './img/test3.png';
 import './css/index.scss';
-
+import './css/font-awesome.min.css';
 
 new Vue({
   el:'#app',
   render:(h)=>{
-    return h('div','引入了vue')
+    return h('div','引入了vue');
   }
 })
 console.log(test1);
@@ -21,6 +21,7 @@ const appendImg = (imgUrl) => {
 };
 appendImg(png1);
 appendImg(png2);
+appendImg(png3);
 appendImg(png3);
 const arr = [1,2,3,4,[5]]
 console.log(arr.includes(1))
@@ -67,7 +68,7 @@ const gf1 = function * (){
   yield 1
 }
 const testImport = async ()=>{
-  const test2 = await import('./test2.js')
+  const test2 = await import('./js/test2.js')
   return test2
 }
 testImport().then(res=>{

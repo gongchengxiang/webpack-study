@@ -4,7 +4,14 @@ module.exports = merge(webpackBaseConfig, {
   mode: 'production',
   optimization: {
     splitChunks: {
-      chunks: 'all'
+      chunks: 'all',
+      cacheGroups:{
+        fontawesome:{
+          test: /font-awesome/,
+          chunks: "all",
+          minSize: 0
+        }
+      }
     }
   },
 });

@@ -2,7 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-module.exports={
+module.exports = {
+  target: 'web',
   entry:{
     index: path.resolve(__dirname,'src/index.js')
   },
@@ -10,8 +11,8 @@ module.exports={
     path: path.resolve(__dirname,'dist'),
     filename: 'assets/js/[name]-[chunkhash:8].js',
     chunkFilename:'assets/js/[name]-[chunkhash:8].js',
-    publicPath: './'
-    // publicPath: '/webpack-study/'
+    // publicPath: './'
+    publicPath: '/webpack-study/'
   },
   module:{
     rules:[
@@ -51,29 +52,26 @@ module.exports={
         
       },
       {
-        test: /\.(gif|jpg|png|webp)$/,
+        test: /\.(gif|jpg|jpeg|png|webp|svg)$/,
         include: /src/,
         use: [
           {
             loader: 'url-loader',
             options: {
               name: 'assets/img/[name]-[hash:8].[ext]',
-              limit: 1024 * 15
+              limit: 1024 * 8
             }
           },
         ],
       },
       {
-        test: /\.(woff|woff2|svg|eot|ttf)$/,
-        include: /src/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'assets/fonts/[name]-[hash:8].[ext]',
-            }
-          },
-        ],
+        test: /src\/fonts\/\S+\.(woff|woff2|eot|ttf|svg)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: 'assets/fonts/[name]-[hash:8].[ext]',
+          }
+        },
       }
     ]
   },
@@ -92,4 +90,12 @@ module.exports={
     }),
     new CleanWebpackPlugin(),
   ],
+  resolve:{
+    extensions: [".js", ".json", ".jsx"], // import模块可以不写后缀，会按照这个顺序尝试自动补全，建议写上后缀
+    alias:{ //给指定文件夹起一个别名
+      // '@js':'src/js',
+      '@img':path.join(__dirname, 'src/img')
+    }
+  },
+  // external:['vue']
 }

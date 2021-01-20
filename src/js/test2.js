@@ -1,3 +1,3 @@
 export default  {
-  import:'6666'
+  import:'66666'
 }

@@ -1,15 +1,15 @@
-import Vue from  'vue';
+import Vue from 'vue';
 import test1 from './js/test1';
-import png1 from './img/test1.png';
-import png2 from './img/test2.png';
-import png3 from './img/test3.png';
+// import png1 from '@img/test1.png';
+import png2 from '@img/test2.png';
+import png3 from '@img/test3.png';
 import './css/index.scss';
 import './css/font-awesome.min.css';
 
 new Vue({
   el:'#app',
   render:(h)=>{
-    return h('div','引入了vue');
+    return h('div','引入了vue;');
   }
 })
 console.log(test1);
@@ -19,7 +19,7 @@ const appendImg = (imgUrl) => {
   img.width = 200;
   document.body.appendChild(img)
 };
-appendImg(png1);
+// appendImg(png1);
 appendImg(png2);
 appendImg(png3);
 appendImg(png3);
@@ -67,6 +67,7 @@ gFn()
 const gf1 = function * (){
   yield 1
 }
+gf1()
 const testImport = async ()=>{
   const test2 = await import('./js/test2.js')
   return test2

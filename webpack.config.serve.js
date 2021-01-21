@@ -11,14 +11,8 @@ module.exports = merge(webpackBaseConfig, {
   },
   optimization: {
     emitOnErrors: true, // 在编译时每当有错误时暴露出来
-    // moduleIds: 'named', // named:chunk名字带有模块名(貌似只有异步的起作用)， size：打包最小
-    // chunkIds:'named', // 
-    removeAvailableModules: true, // 如果模块已经包含在所有父级模块中，告知 webpack 从 chunk 中检测出这些模块，或移除这些模块
-    removeEmptyChunks: true,
-    // providedExports: true, // 配啥都好像不管用
-    // usedExports: true, // 配啥都好像不管用
     sideEffects: true, // false:不处理多余引用, true:处理多余引用，根据package.json里面sideEffects决定处理，sideEffects:['*.css']表示不要清理css
-    minimize: true,
+    minimize: false,
     minimizer:[
       new TerserPlugin({
         extractComments: false,
@@ -55,7 +49,7 @@ module.exports = merge(webpackBaseConfig, {
           minChunks: 1,
           name: 'vendors',
           reuseExistingChunk: true,
-          priority: 10,
+          priority: 0,
           enforce: true, // 上述请求数，大小统统不生效，就按改规则打包
         },
         default: {
@@ -69,13 +63,20 @@ module.exports = merge(webpackBaseConfig, {
           name: 'vuepackage',
           reuseExistingChunk: true,
         },
-        // fontawesome:{
-        //   test: /css\/font-awesome\.min\.css/,
-        //   chunks: "all",
-        //   name:'fontawesome',
-        //   reuseExistingChunk: true,
-        //   enforce:true
-        // },
+        fontawesome:{
+          test: /font-awesome\.min\.css/,
+          chunks: "all",
+          name: 'fontawesome',
+          // enforce: true // enforce和minSize二选一，都可以强制抽出来包
+          minSize: 0,
+        },
+        testgcxcss: {
+          test: /testgcx\.css/,
+          chunks: "all",
+          name: 'testgcxcss',
+          // enforce: true
+          minSize: 0,
+        }
       }
     },
   },

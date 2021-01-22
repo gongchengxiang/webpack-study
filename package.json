@@ -46,5 +46,8 @@
       "not ie <= 8"
     ]
   },
-  "sideEffects": ["*.scss","*.css"]
+  "sideEffects": [
+    "*.scss",
+    "*.css"
+  ]
 }

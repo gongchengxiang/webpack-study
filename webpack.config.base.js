@@ -86,7 +86,6 @@ module.exports = {
       filename: `index.html`,
       inject: 'body',
       favicon: 'src/template/favicon.ico',
-      // chunks: ['index'],
       title: 'webpack study'
     }),
     new CleanWebpackPlugin(),

@@ -6,12 +6,6 @@ module.exports = merge(webpackBaseConfig, {
   mode: 'production',
   optimization: {
     emitOnErrors: true, // 在编译时每当有错误时暴露出来
-    // moduleIds: 'named', // named:chunk名字带有模块名(貌似只有异步的起作用)， size：打包最小
-    // chunkIds:'named', // 
-    removeAvailableModules: true, // 如果模块已经包含在所有父级模块中，告知 webpack 从 chunk 中检测出这些模块，或移除这些模块
-    removeEmptyChunks: true,
-    // providedExports: true, // 配啥都好像不管用
-    // usedExports: true, // 配啥都好像不管用
     sideEffects: true, // false:不处理多余引用, true:处理多余引用，根据package.json里面sideEffects决定处理，sideEffects:['*.css']表示不要清理css
     minimize: true,
     minimizer:[
@@ -38,7 +32,7 @@ module.exports = merge(webpackBaseConfig, {
       cacheGroups:{
         vendors: {
           test: (module) => {
-            const exceptModules = ['vue']; // 除了数组里面指定的包，其他node_modules包打包到一起
+            const exceptModules = ['vue'];
             const modulePath = `${module.resource}`;
             if(modulePath.indexOf('node_modules')>-1){
               if(exceptModules.every(e=>modulePath.indexOf(e)===-1)){
@@ -50,27 +44,34 @@ module.exports = merge(webpackBaseConfig, {
           minChunks: 1,
           name: 'vendors',
           reuseExistingChunk: true,
-          priority: 10,
+          priority: 0,
           enforce: true, // 上述请求数，大小统统不生效，就按改规则打包
         },
-        default: { // 一个模块被两个chunk引入就抽离
+        default: {
           minChunks: 2,
           priority: -1,
           reuseExistingChunk: true
         },
-        vuepackage:{ // 包vue相关的单独打包出来
+        vuepackage:{
           test: /[\\/]node_modules[\\/](vue|vuex)/,
           chunks: 'all',
           name: 'vuepackage',
           reuseExistingChunk: true,
         },
-        // fontawesome:{
-        //   test: /css\/font-awesome\.min\.css/,
-        //   chunks: "all",
-        //   name:'fontawesome',
-        //   reuseExistingChunk: true,
-        //   enforce:true
-        // },
+        fontawesome:{
+          test: /font-awesome\.min\.css/,
+          chunks: "all",
+          name: 'fontawesome',
+          // enforce: true // enforce和minSize二选一，都可以强制抽出来包
+          minSize: 0,
+        },
+        testgcxcss: {
+          test: /testgcx\.css/,
+          chunks: "all",
+          name: 'testgcxcss',
+          // enforce: true
+          minSize: 0,
+        }
       }
     },
   },

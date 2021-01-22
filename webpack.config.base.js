@@ -86,7 +86,14 @@ module.exports = {
       filename: `index.html`,
       inject: 'body',
       favicon: 'src/template/favicon.ico',
-      title: 'webpack study'
+      title: 'webpack study',
+      // cdn:{
+      //   js:[
+      //     { url:'https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.js', defer:'defer' },
+      //     { url:'https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js', }
+      //   ],
+      //   css:[]
+      // }
     }),
     new CleanWebpackPlugin(),
   ],
@@ -97,5 +104,7 @@ module.exports = {
       '@img':path.join(__dirname, 'src/img')
     }
   },
-  // external:['vue']
+  externals:{
+    vue: 'Vue',
+  }
 }

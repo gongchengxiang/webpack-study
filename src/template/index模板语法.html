@@ -13,6 +13,12 @@
   <div class="img"></div>
   <i class="fa fa-address-book" aria-hidden="true"></i>
   <a href="#">aaa</a>
-  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.12/vue.min.js"></script>
+  <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
+    <script 
+      defer="<%= htmlWebpackPlugin.options.cdn.js[i].defer %>" 
+      src="<%= htmlWebpackPlugin.options.cdn.js[i].url %>"
+    >
+    </script>
+  <% } %>
 </body>
 </html>

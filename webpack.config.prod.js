@@ -65,13 +65,13 @@ module.exports = merge(webpackBaseConfig, {
           // enforce: true // enforce和minSize二选一，都可以强制抽出来包
           minSize: 0,
         },
-        testgcxcss: {
-          test: /testgcx\.css/,
-          chunks: "all",
-          name: 'testgcxcss',
-          // enforce: true
-          minSize: 0,
-        }
+        // testgcxcss: {
+        //   test: /testgcx\.css/,
+        //   chunks: "all",
+        //   name: 'testgcxcss',
+        //   // enforce: true
+        //   minSize: 0,
+        // }
       }
     },
   },

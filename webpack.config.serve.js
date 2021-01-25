@@ -12,7 +12,7 @@ module.exports = merge(webpackBaseConfig, {
   optimization: {
     emitOnErrors: true, // 在编译时每当有错误时暴露出来
     sideEffects: true, // false:不处理多余引用, true:处理多余引用，根据package.json里面sideEffects决定处理，sideEffects:['*.css']表示不要清理css
-    minimize: true,
+    minimize: false,
     minimizer:[
       new TerserPlugin({
         extractComments: false,

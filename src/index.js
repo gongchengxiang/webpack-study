@@ -75,3 +75,5 @@ const testImport = async ()=>{
 testImport().then(res=>{
   console.log(res)
 })
+const obj = {a:1}
+console.log({b:2,...obj})

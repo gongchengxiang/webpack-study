@@ -1,19 +1,19 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 module.exports = {
   target: 'web',
   entry:{
-    index: path.resolve(__dirname,'src/index.js')
+    index: path.resolve(__dirname, 'src/index.js')
   },
   output:{
     path: path.resolve(__dirname,'dist'),
     filename: 'assets/js/[name]-[chunkhash:8].js',
     chunkFilename:'assets/js/[name]-[chunkhash:8].js',
-    // publicPath: './'
-    publicPath: '/webpack-study/'
+    publicPath: './'
+    // publicPath: '/webpack-study/'
   },
   module:{
     rules:[
@@ -95,7 +95,7 @@ module.exports = {
       //   css:[]
       // }
     }),
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin()
   ],
   resolve:{
     extensions: [".js", ".json", ".jsx"], // import模块可以不写后缀，会按照这个顺序尝试自动补全，建议写上后缀
@@ -104,7 +104,7 @@ module.exports = {
       '@img':path.join(__dirname, 'src/img')
     }
   },
-  externals:{
-    vue: 'Vue',
-  }
+  // externals:{
+  //   vue: 'Vue',
+  // }
 }

@@ -31,15 +31,16 @@ module.exports = merge(webpackBaseConfig, {
     splitChunks: {
       cacheGroups:{
         vendors: {
-          test: (module) => {
-            const exceptModules = ['vue'];
-            const modulePath = `${module.resource}`;
-            if(modulePath.indexOf('node_modules')>-1){
-              if(exceptModules.every(e=>modulePath.indexOf(e)===-1)){
-                return true;
-              }
-            }
-          },
+          // test: (module) => {
+          //   const exceptModules = ['vue'];
+          //   const modulePath = `${module.resource}`;
+          //   if(modulePath.indexOf('node_modules')>-1){
+          //     if(exceptModules.every(e=>modulePath.indexOf(e)===-1)){
+          //       return true;
+          //     }
+          //   }
+          // },
+          test: /[\\/]node_modules[\\/]/,
           chunks: 'all',
           minChunks: 1,
           name: 'vendors',
@@ -52,11 +53,19 @@ module.exports = merge(webpackBaseConfig, {
           priority: -1,
           reuseExistingChunk: true
         },
+        corejs: {
+					test: /[\\/]node_modules[\\/](core-js)/,
+					chunks: 'all',
+					name: 'corejs',
+					reuseExistingChunk: true,        
+					priority: 9,
+        },
         vuepackage:{
           test: /[\\/]node_modules[\\/](vue|vuex)/,
           chunks: 'all',
           name: 'vuepackage',
           reuseExistingChunk: true,
+          priority: 8,
         },
         fontawesome:{
           test: /font-awesome\.min\.css/,
@@ -65,13 +74,13 @@ module.exports = merge(webpackBaseConfig, {
           // enforce: true // enforce和minSize二选一，都可以强制抽出来包
           minSize: 0,
         },
-        // testgcxcss: {
-        //   test: /testgcx\.css/,
-        //   chunks: "all",
-        //   name: 'testgcxcss',
-        //   // enforce: true
-        //   minSize: 0,
-        // }
+        testgcxcss: {
+          test: /testgcx\.css/,
+          chunks: "all",
+          name: 'testgcxcss',
+          // enforce: true
+          minSize: 0,
+        }
       }
     },
   },

@@ -1,19 +1,18 @@
-const path = require('path');
 const { merge } = require('webpack-merge');
 const webpackBaseConfig = require('./webpack.config.base.js');
 const TerserPlugin = require('terser-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = merge(webpackBaseConfig, {
   mode: 'production',
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: true,
-    port: 9000
-  },
+  plugins:[
+    new BundleAnalyzerPlugin()
+  ],
   optimization: {
     emitOnErrors: true, // 在编译时每当有错误时暴露出来
     sideEffects: true, // false:不处理多余引用, true:处理多余引用，根据package.json里面sideEffects决定处理，sideEffects:['*.css']表示不要清理css
-    minimize: false,
+    usedExports: true,
+    minimize: true,
     minimizer:[
       new TerserPlugin({
         extractComments: false,
@@ -38,7 +37,7 @@ module.exports = merge(webpackBaseConfig, {
       cacheGroups:{
         vendors: {
           test: (module) => {
-            const exceptModules = ['core-js','vue'];
+            const exceptModules = ['vue'];
             const modulePath = `${module.resource}`;
             if(modulePath.indexOf('node_modules')>-1){
               if(exceptModules.every(e=>modulePath.indexOf(e)===-1)){

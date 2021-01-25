@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --config webpack.config.dev.js --progress",
     "serve": "cross-env NODE_ENV=production webpack serve --config webpack.config.serve.js --progress",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress"
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress",
+    "analyze": "cross-env NODE_ENV=production npm_config_report=true webpack --config webpack.config.analyze.js --progress"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +29,7 @@
     "sass-loader": "^10.1.1",
     "url-loader": "^4.1.1",
     "webpack": "^5.15.0",
+    "webpack-bundle-analyzer": "^4.4.0",
     "webpack-cli": "^4.3.1",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"

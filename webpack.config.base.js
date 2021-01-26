@@ -12,8 +12,8 @@ module.exports = {
     path: path.resolve(__dirname,'dist'),
     filename: 'assets/js/[name]-[chunkhash:8].js',
     chunkFilename:'assets/js/[name]-[chunkhash:8].js',
-    publicPath: './'
-    // publicPath: '/webpack-study/'
+    // publicPath: './'
+    publicPath: '/webpack-study/'
   },
   module:{
     rules:[
